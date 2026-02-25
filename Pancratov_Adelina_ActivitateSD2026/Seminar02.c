@@ -56,11 +56,13 @@ struct Film* copiazaPrimeleNElemente(struct Film* vector, int nrElemente, int nr
 
 void dezalocare(struct Film** vector, int* nrElemente) {
 	//dezalocam elementele din vector si vectorul
-	for (int i = 0; i < nrElemente; i++)
+	for (int i = 0; i < *nrElemente; i++)
 	{
-		free(vector[i]);
+		free(((*vector)[i]).nume);
 	}
-
+	free(*vector);
+	*vector = NULL;
+	*nrElemente = 0;
 }
 
 //void copiazaAnumiteElemente(struct Sablon* vector, char nrElemente, float prag, struct Sablon** vectorNou, int* dimensiune) {
@@ -83,7 +85,7 @@ void dezalocare(struct Film** vector, int* nrElemente) {
 int main() {
 
 	struct Film f1 = initializare(1, 120, "Dune", 286.5, 14);
-	afisare(f1);
+	//afisare(f1);
 	int nrFilme = 3;
 	struct Film* filme = malloc(nrFilme * sizeof(struct Film));
 	filme[0] = f1;
@@ -95,6 +97,13 @@ int main() {
 	struct Film* vectorNou;
 	int nrFilmeCopiate = 1;
 	vectorNou = copiazaPrimeleNElemente(filme, nrFilme, nrFilmeCopiate);
+	//afisareVector(vectorNou, nrFilmeCopiate);
+	dezalocare(&vectorNou, &nrFilmeCopiate);
 	afisareVector(vectorNou, nrFilmeCopiate);
 	return 0;
+
+	//??
+	//dereferentiere + deplasare + dereferentiere + accesare -> la dezalocare 
+	//fiecre functie are o stiva 
+	//pointerul ocupa 4 sau 8 octeti 
 }
