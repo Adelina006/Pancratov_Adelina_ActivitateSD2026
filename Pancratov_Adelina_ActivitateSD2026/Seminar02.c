@@ -90,14 +90,22 @@ void copiazaAnumiteElemente(struct Film* vector, char nrElemente, float bugetMax
 
 }
 
-//struct Sablon getPrimulElementConditionat(struct Sablon* vector, int nrElemente, const char* conditie) {
-//	//trebuie cautat elementul care indeplineste o conditie
-//	//dupa atributul de tip char*. Acesta este returnat.
-//	struct Sablon s;
-//	s.id = 1;
-//
-//	return s;
-//}
+struct Film getPrimulElementConditionat(struct Film* vector, int nrElemente, const char* numeCautat) {
+	//trebuie cautat elementul care indeplineste o conditie
+	//dupa atributul de tip char*. Acesta este returnat.
+	struct Film s;
+	s.id = -1;
+	for (int i = 0; i < nrElemente; i++)
+	{
+		if (!strcmp(vector[i].nume, numeCautat))
+			//strcmp face diferenta dintre caractere
+		{
+			return vector[i];
+		}
+	}
+
+	return s;
+}
 	
 
 
@@ -123,7 +131,10 @@ int main() {
 	float prag = 300;
 	int dimensiune = 0;
 	copiazaAnumiteElemente(filme, nrFilme, prag, &vectorIeftin, &dimensiune);
-	afisareVector(vectorIeftin , dimensiune);
+	//afisareVector(vectorIeftin , dimensiune);
+	afisare(getPrimulElementConditionat(filme, nrFilme, "Dune"));
+	dezalocare(&filme, &nrFilme);
+
 	return 0;
 
 	//??
