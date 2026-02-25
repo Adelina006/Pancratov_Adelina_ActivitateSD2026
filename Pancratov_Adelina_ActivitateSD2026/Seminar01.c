@@ -6,5 +6,6 @@ int main()
 	int variabila;
 	scanf_s("%d", &variabila);
 	printf("Ai introdus %d", variabila);
+	//comentariu
 	return 0;
 }
