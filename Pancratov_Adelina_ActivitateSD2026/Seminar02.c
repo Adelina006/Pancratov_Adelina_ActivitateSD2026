@@ -65,12 +65,31 @@ void dezalocare(struct Film** vector, int* nrElemente) {
 	*nrElemente = 0;
 }
 
-//void copiazaAnumiteElemente(struct Sablon* vector, char nrElemente, float prag, struct Sablon** vectorNou, int* dimensiune) {
-//	//parametrul prag poate fi modificat in functie de 
-//	// tipul atributului ales pentru a indeplini o conditie
-//	//este creat un nou vector cu elementele care indeplinesc acea conditie
-//}
-//
+void copiazaAnumiteElemente(struct Film* vector, char nrElemente, float bugetMax, struct Film** vectorNou, int* dimensiune) {
+	//parametrul prag poate fi modificat in functie de 
+	// tipul atributului ales pentru a indeplini o conditie
+	//este creat un nou vector cu elementele care indeplinesc acea conditie
+	*dimensiune = 0;
+	for (int i = 0; i < nrElemente; i++ )
+	{
+		if (vector[i].buget < bugetMax)
+		{
+			(*dimensiune)++;
+		}
+	}
+	(*vectorNou) = malloc((*dimensiune) * sizeof(struct Film));
+	int k = 0;
+	for (int i = 0; i < nrElemente; i++)
+	{
+		if (vector[i].buget < bugetMax)
+		{
+			(*vectorNou)[k] = copyFilm(vector[i]);
+			k++;
+		}
+	}
+
+}
+
 //struct Sablon getPrimulElementConditionat(struct Sablon* vector, int nrElemente, const char* conditie) {
 //	//trebuie cautat elementul care indeplineste o conditie
 //	//dupa atributul de tip char*. Acesta este returnat.
@@ -90,7 +109,7 @@ int main() {
 	struct Film* filme = malloc(nrFilme * sizeof(struct Film));
 	filme[0] = f1;
 	*(filme + 1) = initializare(2, 170, "James Bond", 263.78, 13);
-	filme[2] = initializare(3, 240, "Star Wars", 5326.7, 16);
+	filme[2] = initializare(3, 240, "Star Wars", 536.7, 16);
 	//sageata face dereferentiere si accesare 
 	//index face deplasare si dereferentiere 
 	//afisareVector(filme, nrFilme);
@@ -99,11 +118,18 @@ int main() {
 	vectorNou = copiazaPrimeleNElemente(filme, nrFilme, nrFilmeCopiate);
 	//afisareVector(vectorNou, nrFilmeCopiate);
 	dezalocare(&vectorNou, &nrFilmeCopiate);
-	afisareVector(vectorNou, nrFilmeCopiate);
+	//afisareVector(vectorNou, nrFilmeCopiate);
+	struct Film* vectorIeftin;
+	float prag = 300;
+	int dimensiune = 0;
+	copiazaAnumiteElemente(filme, nrFilme, prag, &vectorIeftin, &dimensiune);
+	afisareVector(vectorIeftin , dimensiune);
 	return 0;
 
 	//??
 	//dereferentiere + deplasare + dereferentiere + accesare -> la dezalocare 
 	//fiecre functie are o stiva 
 	//pointerul ocupa 4 sau 8 octeti 
+	//in char putem stoca si valori intregi, putem avea pana la 255(daca avem unsigned)
+	//8 biti pentru semn, primul e pentru semn -> putem stoca pana la 127
 }
