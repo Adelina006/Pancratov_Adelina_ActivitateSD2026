@@ -113,6 +113,7 @@ int main() {
 	/*FILE* file = fopen("masini.txt", "r");
 	Masina masina = citireMasinaFisier(file);
 	afisareMasina(masina);*/
+
 	Masina* masini;
 	int nrMasini;
 	masini = citireVectorMasiniFisier("masini.txt", &nrMasini);
