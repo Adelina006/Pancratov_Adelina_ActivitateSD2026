@@ -88,6 +88,21 @@ Masina* citireVectorMasiniFisier(const char* numeFisier, int* nrMasiniCitite) {
 	//prin apelul repetat al functiei citireMasinaFisier()
 	//numarul de masini este determinat prin numarul de citiri din fisier
 	//ATENTIE - la final inchidem fisierul/stream-ul
+	//facem un while pana la finalul fisierului ( eof); feof e functia care verifica eof
+	//parametrii functiei sunt salvati in stiva fuctiei
+	FILE* file = fopen(numeFisier, "r");
+	 (*nrMasiniCitite) = 0;
+	 Masina* masini = NULL;
+	while (!feof(file))
+	{
+		adaugaMasinaInVector(&masini, nrMasiniCitite, citireMasinaFisier(file));
+									//nrMasini e deja pointer
+		
+	}
+	fclose(file);
+	return masini;
+
+
 }
 
 void dezalocareVectorMasini(Masina** vector, int* nrMasini) {
@@ -95,8 +110,13 @@ void dezalocareVectorMasini(Masina** vector, int* nrMasini) {
 }
 
 int main() {
-	FILE* file = fopen("masini.txt", "r");
+	/*FILE* file = fopen("masini.txt", "r");
 	Masina masina = citireMasinaFisier(file);
-	afisareMasina(masina);
+	afisareMasina(masina);*/
+	Masina* masini;
+	int nrMasini;
+	masini = citireVectorMasiniFisier("masini.txt", &nrMasini);
+	afisareVectorMasini(masini, nrMasini);
+
 	return 0;
 }
