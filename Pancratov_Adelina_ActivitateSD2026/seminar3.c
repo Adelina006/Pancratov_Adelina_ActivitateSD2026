@@ -72,6 +72,15 @@ Masina citireMasinaFisier(FILE* file) {
 	char* modelAux = strtok(NULL, delimitator);
 	masina.model = malloc((strlen(modelAux) + 1) * sizeof(char));
 	strcpy(masina.model, modelAux);
+	//stergem cu free doar elementele pe care le am alocat cu malloc
+
+	char* numeSofer = strtok(NULL, delimitator);
+	masina.numeSofer = malloc((strlen(numeSofer) + 1) * sizeof(char));
+	strcpy(masina.numeSofer, numeSofer);
+
+	char* serie = strtok(NULL, delimitator);
+	masina.serie = serie[0];
+	return masina;
 }
 
 Masina* citireVectorMasiniFisier(const char* numeFisier, int* nrMasiniCitite) {
@@ -86,7 +95,8 @@ void dezalocareVectorMasini(Masina** vector, int* nrMasini) {
 }
 
 int main() {
-
-
+	FILE* file = fopen("masini.txt", "r");
+	Masina masina = citireMasinaFisier(file);
+	afisareMasina(masina);
 	return 0;
 }
