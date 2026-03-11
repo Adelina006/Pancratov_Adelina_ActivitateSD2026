@@ -17,6 +17,7 @@ struct StructuraMasina {
 	unsigned char serie;
 };
 typedef struct StructuraMasina Masina;
+typedef struct Nod Nod;
 
 //creare structura pentru un nod dintr-o lista simplu inlantuita
 
@@ -25,7 +26,7 @@ struct Nod {
 	 Nod* next;
 };
 
-typedef struct Nod Nod;
+
 
 Masina citireMasinaDinFisier(FILE* file) {
 	char buffer[100];
@@ -84,7 +85,7 @@ void adaugaMasinaInLista( Nod** lista,Masina masinaNoua) {
 void afisareListaMasini(Nod* cap) {
 	//afiseaza toate elemente de tip masina din lista simplu inlantuita
 	//prin apelarea functiei afisareMasina()
-	while (cap->next != NULL)
+	while (cap != NULL) //ca sa trec prin toate 
 	{
 		afisareMasina(cap->info);
 		cap = cap->next;
@@ -102,19 +103,48 @@ void* citireListaMasiniDinFisier(const char* numeFisier) {
 	//ATENTIE - la final inchidem fisierul/stream-ul
 	//void* = un pointer la orice (si dam return oricum)
 	FILE *file =fopen(numeFisier, "r");
-	while (!feof)
+	//mereu initializam pointerii
+	Nod* lista = NULL;
+	while (!feof(file))
 	{
-
+		Masina masinaNoua = citireMasinaDinFisier(file);
+		adaugaMasinaInLista(&lista, masinaNoua);
 	}
+	fclose(file);
+	return lista;
 }
 
-void dezalocareListaMasini(/*lista de masini*/) {
+void dezalocareListaMasini(Nod** lista) {
 	//sunt dezalocate toate masinile si lista de elemente
+	Nod* head = *lista;
+	Nod* next = NULL;
+	while (head != NULL)
+	{
+		next = head->next;
+		free(head->info.model);
+		free(head->info.numeSofer);
+		free(head);
+		head = next;
+	}
+	*lista = NULL;
 }
 
-float calculeazaPretMediu(/*lista de masini*/) {
+float calculeazaPretMediu(Nod * lista) {
 	//calculeaza pretul mediu al masinilor din lista.
-	return 0;
+	float suma = 0;
+	int nrMasini = 0;
+	while (lista != NULL)
+	{
+		suma += lista->info.pret;
+		nrMasini++;
+		lista = lista->next;
+	}
+	if (nrMasini != 0)
+	{
+		return suma / nrMasini;
+	}
+	else
+		return 0;
 }
 
 void stergeMasiniDinSeria(/*lista masini*/ char serieCautata) {
@@ -129,6 +159,12 @@ float calculeazaPretulMasinilorUnuiSofer(/*lista masini*/ const char* numeSofer)
 
 int main() {
 
-	Nod* lista = NULL;
+	Nod* lista = citireListaMasiniDinFisier("masini.txt");
+	afisareListaMasini(lista);
+	//dezalocareListaMasini(& lista);
+	//afisareListaMasini(lista);
+	float pretMediu = calculeazaPretMediu(lista);
+	printf("Pret mediu %5.2f", pretMediu);
+	dezalocareListaMasini(&lista);
 	return 0;
 }
