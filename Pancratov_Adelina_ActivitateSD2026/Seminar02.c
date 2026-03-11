@@ -144,3 +144,73 @@
 //	//in char putem stoca si valori intregi, putem avea pana la 255(daca avem unsigned)
 //	//8 biti pentru semn, primul e pentru semn -> putem stoca pana la 127
 //}
+
+//reparcurgere Seminar
+#include<stdio.h>
+#include<stdlib.h>
+
+
+struct Film
+{
+	int id;
+	int durata;
+	char* nume;
+	float buget;
+	char varstaMin;
+};
+
+struct Film initializare(int _id, int _durata, char* _nume, float _buget, char _varsta)
+{
+	struct Film f;
+	f.id = _id;
+	f.durata = _durata;
+	f.buget = _buget;
+	f.varstaMin = _varsta;
+	f.nume = malloc(sizeof(char) * (strlen(_nume) + 1));
+	strcpy(f.nume, _nume);
+
+	return f;
+}
+
+void afisare(struct Film f)
+{
+	printf("\nId: %d\n", f.id);
+	printf("Durata: %d\n", f.durata);
+	printf("Buget: %5.2f\n", f.buget);
+	printf("Varsta minima: %d\n", f.varstaMin);
+	printf("Nume: %s\n", f.nume);
+	
+}
+
+struct Film Copiere(struct Film f)
+{
+	return initializare(f.id, f.durata, f.nume, f.buget, f.varstaMin); 
+	//dar daca am deja valori in f2 (nume)? 
+}
+
+void afisareVector(struct Film* f, int nrElem)
+{
+	for (int i = 0; i < nrElem; i++)
+	{
+		afisare(f[i]);
+	}
+}
+
+int main()
+{
+	struct Film f;
+	f = initializare(1, 120, "Mamma mia", 124.8, 13);
+	afisare(f);
+	struct Film f2;
+	f2 = f;
+	afisare(f2);
+
+	struct Film* filme;
+	int nrFilme = 3;
+	filme = malloc(sizeof(struct Film) * nrFilme);
+	filme[0] = f;
+	*(filme + 1) = initializare(2, 534, "Mamma mia 2", 127.3, 13);
+	*(filme + 2) = initializare(3, 5390, "Dune", 163, 17);
+	afisareVector(filme, nrFilme);
+	return 0;
+}
