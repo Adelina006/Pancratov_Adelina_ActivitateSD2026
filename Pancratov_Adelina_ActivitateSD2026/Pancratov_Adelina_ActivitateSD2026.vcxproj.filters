@@ -33,7 +33,7 @@
     <ClCompile Include="Seminar07.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Seminar8.c">
+    <ClCompile Include="Seminar08.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
