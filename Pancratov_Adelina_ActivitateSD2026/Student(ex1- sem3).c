@@ -130,11 +130,99 @@ void afisareVectorStudenti(Student* s, int nrStudenti)
 	}
 }
 
+//Functie care returneaza studentii bursieri
+Student* returneazaBursieri(Student* studenti, int nrStudenti, int* studentiBursieri)
+{
+	Student* aux = NULL;
+	(*studentiBursieri) = 0;
+	for (int i = 0; i < nrStudenti; i++)
+	{
+		if (studenti[i].medie > 8.50)
+		{
+			(*studentiBursieri)++;
+		}
+	}
+	aux = malloc(sizeof(Student) * (*studentiBursieri));
+	int k = 0;
+	for (int i = 0; i < nrStudenti; i++)
+	{
+		if (studenti[i].medie > 8.50)
+		{
+			aux[k].id = studenti[i].id;
+			aux[k].nume = malloc(sizeof(char) * (strlen(studenti[i].nume) + 1));
+			strcpy(aux[k].nume, studenti[i].nume);
+			aux[k].nrNote = studenti[i].nrNote;
+			aux[k].note = malloc(sizeof(int) * aux[k].nrNote);
+			for (int j = 0; j < aux[k].nrNote; j++)
+			{
+				aux[k].note[j] = studenti[i].note[j];
+			}
+			aux[k].medie = studenti[i].medie;
+			aux[k].bursa = studenti[i].bursa;
+
+			k++;
+		}
+	}
+
+	return aux;
+}
+
+//adaugare nota si actualizare student dupa id
+
+void actualizareNote(Student** studenti, int nrStudenti, int id, int nota)
+{
+	for (int i = 0; i < nrStudenti; i++)
+	{
+		if ((*studenti)[i].id == id)
+		{
+			adaugaNota(&(*studenti)[i], nota);
+			if ((*studenti)[i].note != NULL)
+			{
+				float suma = 0;
+				for (int i = 0; i < (*studenti)[i].nrNote; i++)
+				{
+					suma += (*studenti)[i].note[i];
+				}
+				(*studenti)[i].medie = suma / (*studenti)[i].nrNote;
+			}
+			if ((*studenti)[i].medie >= 8.50)
+			{
+				(*studenti)[i].bursa = 'D';
+			}
+			else
+			{
+				(*studenti)[i].bursa = 'N';
+			}
+		}
+	}
+}
+
+
+void dezalocareVector(Student** s, int* nrStudenti)
+{
+	for (int i = 0; i < (*nrStudenti); i++)
+	{
+		free((*s)[i].nume);
+		free((*s)[i].note);
+	}
+	free(*s);
+	(*nrStudenti) = 0;
+}
 
 int main()
 {
 	int nrStudenti = 0;
 	Student* studenti = citireVectorStudentiDinFisier("studenti.txt", &nrStudenti);
 	afisareVectorStudenti(studenti, nrStudenti);
+	int nrBursieri = 0;
+	Student* bursieri = returneazaBursieri(studenti, nrStudenti, &nrBursieri);
+	printf("\nStudenti Bursieri)");
+	afisareVectorStudenti(bursieri, nrBursieri);
+	actualizareNote(&studenti, nrStudenti, 1, 2);
+	printf("\nStudenti Bursieri)");
+	bursieri = returneazaBursieri(studenti, nrStudenti, &nrBursieri);
+	afisareVectorStudenti(bursieri, nrBursieri);
+	dezalocareVector(&studenti, &nrStudenti);
+	dezalocareVector(&bursieri, &nrBursieri);
 	return 0;
 }
