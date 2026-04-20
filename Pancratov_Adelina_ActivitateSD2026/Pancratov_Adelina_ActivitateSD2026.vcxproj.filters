@@ -39,5 +39,8 @@
     <ClCompile Include="Student%28ex1- sem3%29.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Pointer_la_functii.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
