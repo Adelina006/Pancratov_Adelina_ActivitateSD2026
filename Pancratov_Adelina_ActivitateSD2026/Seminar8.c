@@ -78,7 +78,7 @@ void filtreazaHeap(Heap heap, int pozitieNod) {
 	if (pozitieNod >= 0 && pozitieNod < heap.lungime) //daca nu e indeplinita conditia nu facem nimix =>nu avem n evoie de else
 	{
 
-		int pozitieFiuStanga = pozitieFiuStanga * 2 + 1;
+		int pozitieFiuStanga = pozitieNod * 2 + 1;
 		int pozitieFiuDreapta = pozitieNod * 2 + 2;
 
 		int pozitieMax = pozitieNod;
@@ -114,7 +114,7 @@ Heap citireHeapDeMasiniDinFisier(const char* numeFisier) {
 	// sunt citite toate elementele si abia apoi este filtrat vectorul
 
 	FILE* f = fopen(numeFisier, "r");
-	Heap heap = initializareHeap(12);
+	Heap heap = initializareHeap(10);
 	heap.nrMasini = 0;
 	while (!feof(f))
 	{
@@ -125,6 +125,7 @@ Heap citireHeapDeMasiniDinFisier(const char* numeFisier) {
 		//heap.masini[heap.nrMasini++] = citireMasinaDinFisier(f) ;
 
 	}
+	fclose(f);
 	for (int i = (heap.nrMasini - 2) / 2; i >= 0; i--)
 	{
 		filtreazaHeap(heap, i);
@@ -185,7 +186,14 @@ void dezalocareHeap(Heap* heap) {
 }
 
 int main() {
-
-
+	Heap heap = citireHeapDeMasiniDinFisier("masini.txt");
+	afisareHeap(heap);
+	printf("/nExtragere");
+	Masina m1 = extrageMasina(&heap);
+	afisareMasina(m1);
+	Masina m2 = extrageMasina(&heap);
+	afisareMasina(m2);
+	printf("\nheap ascuns");
+	afiseazaHeapAscuns(heap);
 	return 0;
 }
