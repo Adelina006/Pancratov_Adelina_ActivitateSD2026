@@ -129,7 +129,7 @@
     <ClCompile Include="Seminar03.c" />
     <ClCompile Include="Seminar05.c" />
     <ClCompile Include="Seminar07.c" />
-    <ClCompile Include="Seminar8.c" />
+    <ClCompile Include="Seminar08.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
