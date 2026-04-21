@@ -268,7 +268,7 @@
 //		lista->last = p->prev;
 //	}
 //	if (p->pilot.echipa != NULL)
-//	{
+//	{   
 //		free(p->pilot.echipa);
 //	}
 //	free(p);
