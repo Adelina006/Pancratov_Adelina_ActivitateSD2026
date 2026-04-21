@@ -226,3 +226,6 @@
 //	dezalocareVector(&bursieri, &nrBursieri);
 //	return 0;
 //}
+
+
+
