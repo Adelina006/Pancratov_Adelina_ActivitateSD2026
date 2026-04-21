@@ -42,5 +42,8 @@
     <ClCompile Include="Pointer_la_functii.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ListaSimpla%28ex%29.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

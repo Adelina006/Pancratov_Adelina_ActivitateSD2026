@@ -123,6 +123,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ListaSimpla%28ex%29.c" />
     <ClCompile Include="Pointer_la_functii.c" />
     <ClCompile Include="Seminar01.c" />
     <ClCompile Include="Seminar02.c" />

@@ -1,0 +1,10 @@
+101,Lapte Zuzu,6.50,50,Lactate
+102,Paine Integrala,4.20,100,Panificatie
+106,Iaurt Grecesc,3.80,20,Lactate
+104,Detergent Ariel,85.00,10,Curatenie
+105,Mere Ionatan,5.50,200,Fructe
+107,Televizor Samsung,2400.0,5,Electronice
+110,Sapun Lichid,12.50,15,Curatenie
+108,Ciocolata Milka,4.50,80,Dulciuri
+109,Baterii AA,25.00,2,Electronice
+103,Apa Minerala,2.50,300,Bauturi
